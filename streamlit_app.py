@@ -1,4 +1,4 @@
-from pathlib import Path
+﻿from pathlib import Path
 import os
 import re
 import pandas as pd
@@ -25,6 +25,10 @@ COLUNAS_POR_TIPO = {
     'questionario_estudante': ['QE_'],
     'percepcao_prova': ['CO_RS_I'],
 }
+
+MAPA_SEXO = {'9': 'Indefinido', 'F': 'Feminino', 'M': 'Masculino', '.': 'Indefinido'}
+MAPA_REGIAO = {'1': 'Norte', '2': 'Nordeste', '3': 'Sudeste', '4': 'Sul', '5': 'Centro-Oeste'}
+MAPA_TURNO = {'1': 'Matutino', '2': 'Vespertino', '3': 'Integral', '4': 'Noturno'}
 
 def ordenar_coluna_questionario(nome_coluna):
     numeros = re.findall(r'\d+', nome_coluna)
@@ -69,9 +73,8 @@ def ler_dados_csv(tipo_dado='contextual'):
             if "NU_ANO" in tabela.columns:
                 tabela.drop(columns="NU_ANO", inplace=True)
                 
-            nomes_para_correcao = {'9': 'Indefinido', 'F': 'Feminino', 'M': 'Masculino', '.': 'Indefinido'}
             if 'TP_SEXO' in tabela.columns:
-                tabela['TP_SEXO'] = tabela['TP_SEXO'].replace(to_replace=nomes_para_correcao)
+                tabela['TP_SEXO'] = tabela['TP_SEXO'].replace(to_replace=MAPA_SEXO)
             
             if tipo_dado != 'contextual':
                 colunas_tipo = COLUNAS_POR_TIPO.get(tipo_dado, [])
@@ -92,6 +95,86 @@ def ler_dados_csv(tipo_dado='contextual'):
         return montar_retorno_dados(pasta, arquivos_lidos, contagens)
     
     return contagem_sexo, contagem_idade
+
+@st.cache_data
+def ler_perfil_estudante():
+    pasta = PASTAS_DADOS['perfil_estudante']
+    if not pasta.exists():
+        return pd.DataFrame()
+
+    arquivos_colunas = {
+        'microdados_enade_2025_arq1.txt': ['CO_CURSO', 'CO_UF_CURSO', 'CO_REGIAO_CURSO'],
+        'microdados_enade_2025_arq2.txt': ['ANO_FIM_EM', 'ANO_IN_GRAD', 'CO_TURNO_GRADUACAO'],
+        'microdados_enade_2025_arq5.txt': ['TP_SEXO'],
+        'microdados_enade_2025_arq6.txt': ['NU_IDADE'],
+    }
+
+    perfil = pd.DataFrame()
+    for arquivo, colunas in arquivos_colunas.items():
+        caminho_arquivo = pasta / arquivo
+        if caminho_arquivo.exists():
+            tabela = pd.read_csv(caminho_arquivo, sep=';', dtype=str, usecols=colunas)
+            for coluna in tabela.columns:
+                perfil[coluna] = tabela[coluna]
+
+    if perfil.empty:
+        return perfil
+
+    if 'TP_SEXO' in perfil.columns:
+        perfil['TP_SEXO'] = perfil['TP_SEXO'].replace(to_replace=MAPA_SEXO).fillna('Indefinido')
+
+    if 'CO_REGIAO_CURSO' in perfil.columns:
+        perfil['CO_REGIAO_CURSO'] = perfil['CO_REGIAO_CURSO'].replace(to_replace=MAPA_REGIAO)
+
+    if 'CO_TURNO_GRADUACAO' in perfil.columns:
+        perfil['CO_TURNO_GRADUACAO'] = perfil['CO_TURNO_GRADUACAO'].replace(to_replace=MAPA_TURNO).fillna('Indefinido')
+
+    if 'NU_IDADE' in perfil.columns:
+        idade_numerica = pd.to_numeric(perfil['NU_IDADE'], errors='coerce')
+        perfil['FAIXA_IDADE'] = pd.cut(
+            idade_numerica,
+            bins=[0, 24, 29, 34, 39, 200],
+            labels=['Até 24 anos', '25 a 29 anos', '30 a 34 anos', '35 a 39 anos', '40 anos ou mais']
+        ).astype(str).replace('nan', 'Indefinido')
+
+    return perfil
+
+def aplicar_filtros_perfil(perfil, sexo, faixa_idade, regiao, turno):
+    mascara = pd.Series(True, index=perfil.index)
+
+    if sexo != 'Todos' and 'TP_SEXO' in perfil.columns:
+        mascara &= perfil['TP_SEXO'] == sexo
+    if faixa_idade != 'Todos' and 'FAIXA_IDADE' in perfil.columns:
+        mascara &= perfil['FAIXA_IDADE'] == faixa_idade
+    if regiao != 'Todos' and 'CO_REGIAO_CURSO' in perfil.columns:
+        mascara &= perfil['CO_REGIAO_CURSO'] == regiao
+    if turno != 'Todos' and 'CO_TURNO_GRADUACAO' in perfil.columns:
+        mascara &= perfil['CO_TURNO_GRADUACAO'] == turno
+
+    return mascara
+
+def ler_questionario_estudante_filtrado(mascara_perfil):
+    pasta = PASTAS_DADOS['questionario_estudante']
+    if not pasta.exists():
+        return montar_retorno_dados(pasta, [], {})
+
+    contagens = {}
+    arquivos_lidos = []
+
+    for arquivo in sorted(os.listdir(pasta)):
+        if arquivo.endswith('.txt'):
+            arquivos_lidos.append(arquivo)
+            tabela = pd.read_csv(pasta / arquivo, sep=';', dtype=str)
+            if len(tabela) != len(mascara_perfil):
+                continue
+
+            tabela = tabela.loc[mascara_perfil.values]
+            for coluna in tabela.columns:
+                if coluna.startswith('QE_'):
+                    contagens[coluna] = tabela[coluna].value_counts().sort_index()
+
+    contagens = dict(sorted(contagens.items(), key=lambda item: ordenar_coluna_questionario(item[0])))
+    return montar_retorno_dados(pasta, arquivos_lidos, contagens)
 
 @st.cache_data
 def ler_perguntas_questionario_estudante():
@@ -177,9 +260,50 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     st.subheader("Análise de Dados das Perguntas do Questionário do Estudante")
 
-    dados_questionario_estudante = ler_dados_csv('questionario_estudante')
+    perfil_estudante = ler_perfil_estudante()
     perguntas_questionario_estudante = ler_perguntas_questionario_estudante()
     alternativas_questionario_estudante = ler_alternativas_questionario_estudante()
+
+    if not perfil_estudante.empty:
+        st.write("### Filtros por Perfil")
+
+        opcoes_sexo = ['Todos'] + sorted(perfil_estudante['TP_SEXO'].dropna().unique().tolist())
+        opcoes_faixa_idade = ['Todos'] + [
+            faixa for faixa in ['Até 24 anos', '25 a 29 anos', '30 a 34 anos', '35 a 39 anos', '40 anos ou mais', 'Indefinido']
+            if faixa in perfil_estudante['FAIXA_IDADE'].dropna().unique().tolist()
+        ]
+        opcoes_regiao = ['Todos'] + sorted(perfil_estudante['CO_REGIAO_CURSO'].dropna().unique().tolist())
+        opcoes_turno = ['Todos'] + sorted(perfil_estudante['CO_TURNO_GRADUACAO'].dropna().unique().tolist())
+
+        filtro1, filtro2, filtro3, filtro4 = st.columns(4)
+        with filtro1:
+            sexo_escolhido = st.selectbox("Sexo", opcoes_sexo, key='filtro_sexo_estudante')
+        with filtro2:
+            faixa_idade_escolhida = st.selectbox("Faixa etária", opcoes_faixa_idade, key='filtro_faixa_idade_estudante')
+        with filtro3:
+            regiao_escolhida = st.selectbox("Região do curso", opcoes_regiao, key='filtro_regiao_estudante')
+        with filtro4:
+            turno_escolhido = st.selectbox("Turno", opcoes_turno, key='filtro_turno_estudante')
+
+        if st.button("Limpar filtros"):
+            st.session_state['filtro_sexo_estudante'] = 'Todos'
+            st.session_state['filtro_faixa_idade_estudante'] = 'Todos'
+            st.session_state['filtro_regiao_estudante'] = 'Todos'
+            st.session_state['filtro_turno_estudante'] = 'Todos'
+            st.rerun()
+
+
+        mascara_perfil = aplicar_filtros_perfil(
+            perfil_estudante,
+            sexo_escolhido,
+            faixa_idade_escolhida,
+            regiao_escolhida,
+            turno_escolhido
+        )
+        dados_questionario_estudante = ler_questionario_estudante_filtrado(mascara_perfil)
+    else:
+        st.warning("Dados de perfil do estudante não encontrados. A análise será exibida sem filtros.")
+        dados_questionario_estudante = ler_dados_csv('questionario_estudante')
 
     if dados_questionario_estudante['contagens']:
         total_perguntas = dados_questionario_estudante['total_colunas']
@@ -223,7 +347,11 @@ with tab1:
                     alternativas_questionario_estudante
                 )
             )
-            tabela_frequencia = tabela_frequencia[["Código da Resposta", "Resposta", "Total de Respostas"]]
+            total_respostas_pergunta = tabela_frequencia["Total de Respostas"].sum()
+            tabela_frequencia["Percentual"] = (
+                tabela_frequencia["Total de Respostas"] / total_respostas_pergunta * 100
+            ).round(2)
+            tabela_frequencia = tabela_frequencia[["Código da Resposta", "Resposta", "Total de Respostas", "Percentual"]]
             st.dataframe(tabela_frequencia, use_container_width=True)
     else:
         st.warning("Dados do Questionário do Estudante não encontrados na pasta.")
@@ -281,3 +409,4 @@ with tab2:
             st.dataframe(contagem_idade.rename("Total de Alunos"), use_container_width=True)
     else:
         st.warning("Dados da coluna 'NU_IDADE' não encontrados na pasta.")
+
