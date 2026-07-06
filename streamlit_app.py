@@ -26,6 +26,102 @@ COLUNAS_POR_TIPO = {
     'percepcao_prova': ['CO_RS_I'],
 }
 
+PERGUNTAS_CONTEXTUAIS = {
+    'NU_QUESTAO_01': 'Qual o seu estado civil?',
+    'NU_QUESTAO_02': 'Você tem filhos?',
+    'NU_QUESTAO_03': 'Qual é a sua cor ou raça?',
+    'NU_QUESTAO_04': 'Você tem alguma deficiência, transtorno global do desenvolvimento ou altas habilidades?',
+    'NU_QUESTAO_05': 'Qual a renda total de sua família, incluindo seus rendimentos?',
+    'NU_QUESTAO_06': 'Há quanto tempo você concluiu o curso de medicina?',
+    'NU_QUESTAO_07': 'Você está trabalhando atualmente?',
+    'NU_QUESTAO_08': 'Há quanto tempo você atua profissionalmente como médico?',
+    'NU_QUESTAO_09': 'Qual sua carga horária atual de trabalho semanal como médico?',
+    'NU_QUESTAO_10': 'A partir da obtenção de especialidade médico-profissional, em quais esferas profissionais pretende inserir-se?',
+}
+
+ALTERNATIVAS_CONTEXTUAIS = {
+    'NU_QUESTAO_01': {
+        'A': 'Solteiro(a)',
+        'B': 'Casado (a) ou vivendo em união estável',
+        'C': 'Separado(a) judicialmente/divorciado(a)',
+        'D': 'Viúvo(a)',
+        'E': 'Outro',
+    },
+    'NU_QUESTAO_02': {
+        'A': 'Não',
+        'B': 'Sim, 1 filho',
+        'C': 'Sim, 2 filhos',
+        'D': 'Sim, 3 filhos ou mais',
+    },
+    'NU_QUESTAO_03': {
+        'A': 'Branca',
+        'B': 'Preta',
+        'C': 'Amarela',
+        'D': 'Parda',
+        'E': 'Indígena',
+        'F': 'Não quero declarar',
+    },
+    'NU_QUESTAO_04': {
+        'A': 'Não possuo',
+        'B': 'Cegueira',
+        'C': 'Baixa Visão',
+        'D': 'Surdez',
+        'E': 'Deficiência Auditiva',
+        'F': 'Deficiência Física',
+        'G': 'Transtorno do Espectro Autista (TEA)',
+        'H': 'Altas habilidades/superdotação',
+        'I': 'Deficiência Intelectual',
+        'J': 'Transtorno do Déficit de Atenção com Hiperatividade (TDAH)',
+        'K': 'Dislexia',
+        'L': 'Outras/outros',
+        'M': 'Não quero declarar',
+    },
+    'NU_QUESTAO_05': {
+        'A': 'Até 1,5 salário mínimo (até R$ 2.277,00)',
+        'B': 'De 1,5 a 3 salários mínimos (R$ 2.277,00 a R$ 4.554,00)',
+        'C': 'De 3 a 4,5 salários mínimos (R$ 4.554,00 a R$ 6.831,00)',
+        'D': 'De 4,5 a 6 salários mínimos (R$ 6.831,00 a R$ 9.108,00)',
+        'E': 'De 6 a 10 salários mínimos (R$ 9.108,00 a R$ 15.180,00)',
+        'F': 'De 10 a 30 salários mínimos (R$ 15.180,00 a R$ 45.540,00)',
+        'G': 'Acima de 30 salários mínimos (mais de R$ 45.540,00)',
+    },
+    'NU_QUESTAO_06': {
+        'A': 'Menos de 1 ano',
+        'B': 'Entre 1 e 2 anos',
+        'C': 'Entre 3 e 5 anos',
+        'D': 'Entre 6 e 10 anos',
+        'E': 'Mais de 10 anos',
+        'F': 'Não conclui',
+    },
+    'NU_QUESTAO_07': {
+        'A': 'Não',
+        'B': 'Sim, mas não na minha área de formação',
+        'C': 'Sim, na minha área de formação',
+    },
+    'NU_QUESTAO_08': {
+        'A': 'Nunca atuei como médico',
+        'B': 'Menos de 1 ano',
+        'C': 'Entre 1 e 2 anos',
+        'D': 'Entre 3 e 5 anos',
+        'E': 'Entre 6 e 10 anos',
+        'F': 'Mais de 10 anos',
+    },
+    'NU_QUESTAO_09': {
+        'A': 'Não estou trabalhando atualmente como médico',
+        'B': '20 horas semanais ou menos',
+        'C': '30 horas semanais',
+        'D': '40 horas semanais',
+        'E': 'Mais de 40 horas semanais',
+    },
+    'NU_QUESTAO_10': {
+        'A': 'Prestação de serviço no Sistema Único de Saúde (SUS)',
+        'B': 'Prestação de serviço na rede hospitalar privada',
+        'C': 'Pesquisa aplicada no setor privado',
+        'D': 'Pesquisa e Ensino na área da formação médica',
+        'E': 'Outras',
+    },
+}
+
 MAPA_SEXO = {'9': 'Indefinido', 'F': 'Feminino', 'M': 'Masculino', '.': 'Indefinido'}
 MAPA_REGIAO = {'1': 'Norte', '2': 'Nordeste', '3': 'Sudeste', '4': 'Sul', '5': 'Centro-Oeste'}
 MAPA_TURNO = {'1': 'Matutino', '2': 'Vespertino', '3': 'Integral', '4': 'Noturno'}
@@ -177,6 +273,29 @@ def ler_questionario_estudante_filtrado(mascara_perfil):
     return montar_retorno_dados(pasta, arquivos_lidos, contagens)
 
 @st.cache_data
+def ler_questionario_contextual():
+    pasta = PASTAS_DADOS['contextual']
+    if not pasta.exists():
+        return montar_retorno_dados(pasta, [], {})
+
+    contagens = {}
+    arquivos_lidos = []
+
+    for arquivo in sorted(os.listdir(pasta)):
+        if arquivo.endswith('.txt'):
+            tabela = pd.read_csv(pasta / arquivo, sep=';', dtype=str)
+            colunas_questionario = [coluna for coluna in tabela.columns if coluna.startswith('NU_QUESTAO_')]
+
+            if colunas_questionario:
+                arquivos_lidos.append(arquivo)
+
+            for coluna in colunas_questionario:
+                contagens[coluna] = tabela[coluna].value_counts().sort_index()
+
+    contagens = dict(sorted(contagens.items(), key=lambda item: ordenar_coluna_questionario(item[0])))
+    return montar_retorno_dados(pasta, arquivos_lidos, contagens)
+
+@st.cache_data
 def ler_perguntas_questionario_estudante():
     caminho_perguntas = PASTAS_DADOS['questionario_estudante'] / 'perguntas_questionario_estudante.csv'
     if not caminho_perguntas.exists():
@@ -215,10 +334,53 @@ def descrever_resposta_questionario(codigo_pergunta, resposta, alternativas):
         descricoes.append(f"{item} - {descricao}")
     return "; ".join(descricoes)
 
+def descrever_resposta_contextual(codigo_pergunta, resposta):
+    resposta = str(resposta)
+    alternativas = ALTERNATIVAS_CONTEXTUAIS.get(codigo_pergunta, {})
+
+    if resposta == '.':
+        return 'Sem resposta'
+    if ',' not in resposta:
+        return alternativas.get(resposta, resposta)
+
+    descricoes = []
+    for item in resposta.split(','):
+        item = item.strip()
+        descricao = alternativas.get(item, item)
+        descricoes.append(f"{item} - {descricao}")
+    return "; ".join(descricoes)
+
 def gerar_grafico_pizza(serie_dados):
-    fig, ax = plt.subplots(figsize=(6, 6))
-    ax.pie(serie_dados.values, labels=serie_dados.index, autopct="%1.1f%%", startangle=90)
+    def formatar_percentual(percentual):
+        if percentual < 3:
+            return ""
+        return f"{percentual:.1f}%"
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+    wedges, _, autotexts = ax.pie(
+        serie_dados.values,
+        labels=None,
+        autopct=formatar_percentual,
+        startangle=90,
+        pctdistance=0.68,
+        wedgeprops={'linewidth': 1, 'edgecolor': 'white'}
+    )
+
+    for texto in autotexts:
+        texto.set_fontsize(9)
+        texto.set_color('#263238')
+
+    ax.legend(
+        wedges,
+        [str(indice) for indice in serie_dados.index],
+        title="Respostas",
+        loc="center left",
+        bbox_to_anchor=(1.08, 0.5),
+        frameon=False,
+        labelspacing=1.1
+    )
     ax.axis('equal')
+    fig.tight_layout()
     return fig
 
 def gerar_grafico_barra(serie_dados, color_palette=None):
@@ -259,6 +421,15 @@ tab1, tab2, tab3 = st.tabs([
 
 with tab1:
     st.subheader("Análise de Dados das Perguntas do Questionário do Estudante")
+
+    caminho_questionario_estudante_pdf = workspace / 'data' / 'questionario_estudante' / 'Questionário do Estudante Enamed 2025.pdf'
+    if caminho_questionario_estudante_pdf.exists():
+        st.download_button(
+            "Baixar o questionário",
+            data=caminho_questionario_estudante_pdf.read_bytes(),
+            file_name="Questionário do Estudante Enamed 2025.pdf",
+            mime="application/pdf"
+        )
 
     perfil_estudante = ler_perfil_estudante()
     perguntas_questionario_estudante = ler_perguntas_questionario_estudante()
@@ -364,49 +535,76 @@ with tab2:
         st.download_button("Baixar o questionário", data=caminho_questionario_pdf.read_bytes(), file_name="Questionário Contextual Enamed 2025.pdf", mime="application/pdf")
     
     st.divider()
-    
-    contagem_sexo, contagem_idade = ler_dados_csv()
-    
-    if contagem_sexo is not None:
-        total_participantes = int(contagem_sexo.sum())
-        total_feminino = int(contagem_sexo.get('Feminino', 0))
-        total_masculino = int(contagem_sexo.get('Masculino', 0))
+    st.write("### Perguntas do Questionário Contextual")
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Quantidade de Participantes", value=f"{total_participantes:,}".replace(",", "."))
-        with col2:
-            st.metric("Participantes do Sexo Feminino", value=f"{total_feminino:,}".replace(",", "."))
-        with col3:
-            st.metric("Participantes do Sexo Masculino", value=f"{total_masculino:,}".replace(",", "."))
-            
-        st.divider()
-        
-        st.write("### Distribuição por Sexo")
-        col_grafico1, col_grafico2 = st.columns(2)
-        
-        with col_grafico1:
-            fig_pizza = gerar_grafico_pizza(contagem_sexo)
-            st.pyplot(fig_pizza)
-            
-        with col_grafico2:
-            fig_barra = gerar_grafico_barra(contagem_sexo)
-            st.pyplot(fig_barra)
+    dados_questionario_contextual = ler_questionario_contextual()
+
+    if dados_questionario_contextual['contagens']:
+        pergunta_contextual_escolhida = st.selectbox(
+            "Escolha a pergunta contextual para visualizar",
+            list(dados_questionario_contextual['contagens'].keys()),
+            format_func=lambda codigo: f"{codigo} - {PERGUNTAS_CONTEXTUAIS.get(codigo, codigo)}"
+        )
+
+        contagem_contextual = dados_questionario_contextual['contagens'][pergunta_contextual_escolhida]
+        texto_pergunta_contextual = PERGUNTAS_CONTEXTUAIS.get(pergunta_contextual_escolhida, pergunta_contextual_escolhida)
+
+        st.write(f"### {pergunta_contextual_escolhida}")
+        st.write(texto_pergunta_contextual)
+
+        total_contextual = int(contagem_contextual.sum())
+        total_sem_resposta = int(contagem_contextual.get('.', 0))
+        total_respostas_validas = total_contextual - total_sem_resposta
+        percentual_sem_resposta = (total_sem_resposta / total_contextual * 100) if total_contextual else 0
+
+        contagem_validas = contagem_contextual.drop(labels='.', errors='ignore')
+        if not contagem_validas.empty:
+            codigo_mais_frequente = contagem_validas.idxmax()
+            total_mais_frequente = int(contagem_validas.max())
+            percentual_mais_frequente = (total_mais_frequente / total_respostas_validas * 100) if total_respostas_validas else 0
+            resposta_mais_frequente = descrever_resposta_contextual(pergunta_contextual_escolhida, codigo_mais_frequente)
+        else:
+            codigo_mais_frequente = '-'
+            total_mais_frequente = 0
+            percentual_mais_frequente = 0
+            resposta_mais_frequente = 'Sem respostas válidas'
+
+        info1, info2, info3, info4 = st.columns(4)
+        with info1:
+            st.metric("Total de respostas", value=f"{total_contextual:,}".replace(",", "."))
+        with info2:
+            st.metric("Respostas válidas", value=f"{total_respostas_validas:,}".replace(",", "."))
+        with info3:
+            st.metric("Sem resposta", value=f"{total_sem_resposta:,}".replace(",", "."), delta=f"{percentual_sem_resposta:.2f}%")
+        with info4:
+            st.metric("Alternativas marcadas", value=len(contagem_validas))
+
+        total_mais_frequente_formatado = f"{total_mais_frequente:,}".replace(",", ".")
+        st.info(
+            f"Resposta mais frequente: {codigo_mais_frequente} - {resposta_mais_frequente} "
+            f"({total_mais_frequente_formatado} respostas; {percentual_mais_frequente:.2f}% das respostas válidas)."
+        )
+
+        st.write("### Distribuição das Respostas")
+        col_contextual1, col_contextual2 = st.columns(2)
+
+        with col_contextual1:
+            fig_pizza_contextual = gerar_grafico_pizza(contagem_contextual)
+            st.pyplot(fig_pizza_contextual)
+
+        with col_contextual2:
+            fig_barra_contextual = gerar_grafico_barra(contagem_contextual)
+            st.pyplot(fig_barra_contextual)
+
+        st.write("#### Tabela de Frequência")
+        tabela_contextual = contagem_contextual.rename_axis("Código da Resposta").reset_index(name="Total de Respostas")
+        tabela_contextual["Resposta"] = tabela_contextual["Código da Resposta"].map(
+            lambda resposta: descrever_resposta_contextual(pergunta_contextual_escolhida, resposta)
+        )
+        tabela_contextual["Percentual"] = (
+            tabela_contextual["Total de Respostas"] / total_contextual * 100
+        ).round(2)
+        tabela_contextual = tabela_contextual[["Código da Resposta", "Resposta", "Total de Respostas", "Percentual"]]
+        st.dataframe(tabela_contextual, use_container_width=True)
     else:
-        st.warning("Dados da coluna 'TP_SEXO' não encontrados na pasta.")
-
-    st.divider()
-
-    if contagem_idade is not None:
-        st.write("### Distribuição por Idade")
-        
-        col_idade1, col_idade2 = st.columns(2)
-        with col_idade1:
-            fig_barra_idade = gerar_grafico_barra(contagem_idade, color_palette=['#2ca02c'])
-            st.pyplot(fig_barra_idade)
-        with col_idade2:
-            st.write("#### Tabela de Frequência de Idades")
-            st.dataframe(contagem_idade.rename("Total de Alunos"), use_container_width=True)
-    else:
-        st.warning("Dados da coluna 'NU_IDADE' não encontrados na pasta.")
-
+        st.warning("Dados das perguntas contextuais não encontrados na pasta.")
