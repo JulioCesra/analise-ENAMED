@@ -1,0 +1,516 @@
+﻿codigo;resposta;descricao
+QE_I01;.;Sem resposta
+QE_I01;A;Solteiro(a)
+QE_I01;B;Casado (a) ou vivendo em união estável
+QE_I01;C;Separado(a) judicialmente/divorciado(a)
+QE_I01;D;Viúvo(a)
+QE_I01;E;Outro
+QE_I02;.;Sem resposta
+QE_I02;A;Não
+QE_I02;B;Sim, 1 filho
+QE_I02;C;Sim, 2 filhos
+QE_I02;D;Sim, 3 filhos ou mais
+QE_I03;.;Sem resposta
+QE_I03;A;Branca
+QE_I03;B;Preta
+QE_I03;C;Amarela
+QE_I03;D;Parda
+QE_I03;E;Indígena
+QE_I03;F;Não quero declarar
+QE_I04;.;Sem resposta
+QE_I04;A;Não possuo
+QE_I04;B;Cegueira
+QE_I04;C;Baixa Visão
+QE_I04;D;Surdez
+QE_I04;E;Deficiência Auditiva
+QE_I04;F;Deficiência Física
+QE_I04;G;Transtorno do Espectro Autista (TEA)
+QE_I04;H;Altas habilidades/superdotação
+QE_I04;I;Deficiência Intelectual
+QE_I04;J;Transtorno do Deficit de Atenção com Hiperatividade (TDAH)
+QE_I04;K;Dislexia
+QE_I04;L;Outras/outros
+QE_I04;M;Não quero declarar
+QE_I05;.;Sem resposta
+QE_I05;A;Sim
+QE_I05;B;Não
+QE_I05;C;Não sei responder
+QE_I06;.;Sem resposta
+QE_I06;A;Nenhuma
+QE_I06;B;Ensino Fundamental: 1º ao 5º ano (1ª a 4ª série)
+QE_I06;C;Ensino Fundamental: 6º ao 9º ano (5ª a 8ª série)
+QE_I06;D;Ensino Médio
+QE_I06;E;Ensino Superior - Graduação
+QE_I06;F;Pós-graduação (Especialização)
+QE_I06;G;Pós-Graduação (Mestrado ou Doutorado)
+QE_I06;H;Não sei
+QE_I07;.;Sem resposta
+QE_I07;A;Nenhuma
+QE_I07;B;Ensino Fundamental: 1º ao 5º ano (1ª a 4ª série)
+QE_I07;C;Ensino Fundamental: 6º ao 9º ano (5ª a 8ª série)
+QE_I07;D;Ensino Médio
+QE_I07;E;Ensino Superior - Graduação
+QE_I07;F;Pós-graduação (Especialização)
+QE_I07;G;Pós-Graduação (Mestrado ou Doutorado)
+QE_I07;H;Não sei
+QE_I08;.;Sem resposta
+QE_I08;A;Não tenho renda e meus gastos são financiados por programas governamentais
+QE_I08;B;Não tenho renda e meus gastos são financiados pela minha família ou por outras pessoas
+QE_I08;C;Tenho renda, mas recebo ajuda da família ou de outras pessoas para financiar meus gastos
+QE_I08;D;Tenho renda e não preciso de ajuda para financiar meus gastos
+QE_I08;E;Tenho renda e contribuo com o sustento da família
+QE_I08;F;Sou o principal responsável pelo sustento da família
+QE_I09;.;Sem resposta
+QE_I09;A;Até 1,5 salário mínimo (até R$ 2.277,00)
+QE_I09;B;De 1,5 a 3 salários mínimos (R$ 2.277,00 a R$ 4.554,00)
+QE_I09;C;De 3 a 4,5 salários mínimos (R$ 4.554,00 a R$ 6.831,00)
+QE_I09;D;De 4,5 a 6 salários mínimos (R$ 6.831,00 a R$ 9.108,00)
+QE_I09;E;De 6 a 10 salários mínimos (R$ 9.108,00 a R$ 15.180,00)
+QE_I09;F;De 10 a 30 salários mínimos (R$ 15.180,00 a R$ 45.540,00)
+QE_I09;G;Acima de 30 salários mínimos (mais de R$ 45.540,00)
+QE_I10;.;Sem resposta
+QE_I10;A;Não trabalhei durante o curso
+QE_I10;B;Trabalhei 20 horas semanais
+QE_I10;C;Trabalhei 30 horas semanais
+QE_I10;D;Trabalhei 40 horas semanais
+QE_I10;E;Trabalhei com jornada de trabalho flexível de horários
+QE_I11;.;Sem resposta
+QE_I11;A;Não
+QE_I11;B;Sim, por critério étnico-racial
+QE_I11;C;Sim, por critério de renda
+QE_I11;D;Sim, por ter estudado em escola pública ou particular com bolsa de estudos
+QE_I11;E;Sim, por sistema que combina dois ou mais critérios anteriores
+QE_I11;F;Sim, por sistema diferente dos anteriores
+QE_I12;.;Sem resposta
+QE_I12;A;Gratuidade
+QE_I12;B;Preço da mensalidade
+QE_I12;C;Proximidade da minha residência
+QE_I12;D;Proximidade do meu trabalho
+QE_I12;E;Facilidade de acesso
+QE_I12;F;Qualidade/reputação
+QE_I12;G;Foi a única onde tive aprovação
+QE_I12;H;Possibilidade de ter bolsa de estudo
+QE_I12;I;Outro motivo
+QE_I13;.;Sem resposta
+QE_I13;A;Nenhum, pois meu curso é gratuito
+QE_I13;B;Nenhum, embora meu curso não seja gratuito
+QE_I13;C;ProUni integral
+QE_I13;D;ProUni parcial, apenas
+QE_I13;E;FIES, apenas
+QE_I13;F;ProUni Parcial e FIES
+QE_I13;G;Bolsa oferecida por governo estadual, distrital ou municipal
+QE_I13;H;Bolsa oferecida pela própria instituição
+QE_I13;I;Bolsa oferecida por outra entidade (empresa, ONG, outra)
+QE_I13;J;Financiamento oferecido pela própria instituição
+QE_I13;K;Financiamento bancário
+QE_I14;.;Sem resposta
+QE_I14;A;Não tive dificuldades
+QE_I14;B;Falta de recursos financeiros para pagar mensalidades
+QE_I14;C;Falta de recursos financeiros para se manter estudando
+QE_I14;D;Falta de recursos financeiros para comprar material e/ou equipamentos requeridos pelo curso
+QE_I14;E;Necessidade de trabalhar
+QE_I14;F;Falta de tempo para estudar
+QE_I14;G;Comportamento discriminatório por parte de professores ou colegas em relação alguma condição sua particular
+QE_I14;H;Dificuldade de deslocamento para a instituição
+QE_I14;I;Dificuldade de relacionamento com professores
+QE_I14;J;Dificuldade de relacionamento com os colegas
+QE_I14;K;A modalidade de ensino (a distância ou presencial) não incentivava os estudos
+QE_I14;L;O conteúdo do curso não fazia sentido
+QE_I14;M;Não sei ou não quero responder
+QE_I15;.;Sem resposta
+QE_I15;A;Nenhum
+QE_I15;B;Auxílio moradia
+QE_I15;C;Auxílio alimentação
+QE_I15;D;Auxílio moradia e alimentação
+QE_I15;E;Auxílio permanência
+QE_I15;F;Outro tipo de auxílio
+QE_I16;.;Sem resposta
+QE_I16;A;Nenhum
+QE_I16;B;Bolsa de iniciação científica
+QE_I16;C;Bolsa de extensão
+QE_I16;D;Bolsa de monitoria/tutoria
+QE_I16;E;Bolsa PET
+QE_I16;F;Bolsa PIBID
+QE_I16;G;Bolsa Residência Pedagógica
+QE_I16;H;Outro tipo de bolsa acadêmica
+QE_I17;.;Sem resposta
+QE_I17;A;Nenhuma, apenas assisto às aulas
+QE_I17;B;De uma a três
+QE_I17;C;De quatro a sete
+QE_I17;D;De oito a doze
+QE_I17;E;Mais de doze
+QE_I18;.;Sem resposta
+QE_I18;1;Discordo totalmente
+QE_I18;2;Discordo
+QE_I18;3;Discordo parcialmente
+QE_I18;4;Concordo parcialmente
+QE_I18;5;Concordo
+QE_I18;6;Concordo totalmente
+QE_I18;7;Não sei responder
+QE_I18;8;Não se aplica
+QE_I19;.;Sem resposta
+QE_I19;1;Discordo totalmente
+QE_I19;2;Discordo
+QE_I19;3;Discordo parcialmente
+QE_I19;4;Concordo parcialmente
+QE_I19;5;Concordo
+QE_I19;6;Concordo totalmente
+QE_I19;7;Não sei responder
+QE_I19;8;Não se aplica
+QE_I20;.;Sem resposta
+QE_I20;1;Discordo totalmente
+QE_I20;2;Discordo
+QE_I20;3;Discordo parcialmente
+QE_I20;4;Concordo parcialmente
+QE_I20;5;Concordo
+QE_I20;6;Concordo totalmente
+QE_I20;7;Não sei responder
+QE_I20;8;Não se aplica
+QE_I21;.;Sem resposta
+QE_I21;1;Discordo totalmente
+QE_I21;2;Discordo
+QE_I21;3;Discordo parcialmente
+QE_I21;4;Concordo parcialmente
+QE_I21;5;Concordo
+QE_I21;6;Concordo totalmente
+QE_I21;7;Não sei responder
+QE_I21;8;Não se aplica
+QE_I22;.;Sem resposta
+QE_I22;1;Discordo totalmente
+QE_I22;2;Discordo
+QE_I22;3;Discordo parcialmente
+QE_I22;4;Concordo parcialmente
+QE_I22;5;Concordo
+QE_I22;6;Concordo totalmente
+QE_I22;7;Não sei responder
+QE_I22;8;Não se aplica
+QE_I23;.;Sem resposta
+QE_I23;1;Discordo totalmente
+QE_I23;2;Discordo
+QE_I23;3;Discordo parcialmente
+QE_I23;4;Concordo parcialmente
+QE_I23;5;Concordo
+QE_I23;6;Concordo totalmente
+QE_I23;7;Não sei responder
+QE_I23;8;Não se aplica
+QE_I24;.;Sem resposta
+QE_I24;1;Discordo totalmente
+QE_I24;2;Discordo
+QE_I24;3;Discordo parcialmente
+QE_I24;4;Concordo parcialmente
+QE_I24;5;Concordo
+QE_I24;6;Concordo totalmente
+QE_I24;7;Não sei responder
+QE_I24;8;Não se aplica
+QE_I25;.;Sem resposta
+QE_I25;1;Discordo totalmente
+QE_I25;2;Discordo
+QE_I25;3;Discordo parcialmente
+QE_I25;4;Concordo parcialmente
+QE_I25;5;Concordo
+QE_I25;6;Concordo totalmente
+QE_I25;7;Não sei responder
+QE_I25;8;Não se aplica
+QE_I26;.;Sem resposta
+QE_I26;1;Discordo totalmente
+QE_I26;2;Discordo
+QE_I26;3;Discordo parcialmente
+QE_I26;4;Concordo parcialmente
+QE_I26;5;Concordo
+QE_I26;6;Concordo totalmente
+QE_I26;7;Não sei responder
+QE_I26;8;Não se aplica
+QE_I27;.;Sem resposta
+QE_I27;1;Discordo totalmente
+QE_I27;2;Discordo
+QE_I27;3;Discordo parcialmente
+QE_I27;4;Concordo parcialmente
+QE_I27;5;Concordo
+QE_I27;6;Concordo totalmente
+QE_I27;7;Não sei responder
+QE_I27;8;Não se aplica
+QE_I28;.;Sem resposta
+QE_I28;1;Discordo totalmente
+QE_I28;2;Discordo
+QE_I28;3;Discordo parcialmente
+QE_I28;4;Concordo parcialmente
+QE_I28;5;Concordo
+QE_I28;6;Concordo totalmente
+QE_I28;7;Não sei responder
+QE_I28;8;Não se aplica
+QE_I29;.;Sem resposta
+QE_I29;1;Discordo totalmente
+QE_I29;2;Discordo
+QE_I29;3;Discordo parcialmente
+QE_I29;4;Concordo parcialmente
+QE_I29;5;Concordo
+QE_I29;6;Concordo totalmente
+QE_I29;7;Não sei responder
+QE_I29;8;Não se aplica
+QE_I30;.;Sem resposta
+QE_I30;1;Discordo totalmente
+QE_I30;2;Discordo
+QE_I30;3;Discordo parcialmente
+QE_I30;4;Concordo parcialmente
+QE_I30;5;Concordo
+QE_I30;6;Concordo totalmente
+QE_I30;7;Não sei responder
+QE_I30;8;Não se aplica
+QE_I31;.;Sem resposta
+QE_I31;1;Discordo totalmente
+QE_I31;2;Discordo
+QE_I31;3;Discordo parcialmente
+QE_I31;4;Concordo parcialmente
+QE_I31;5;Concordo
+QE_I31;6;Concordo totalmente
+QE_I31;7;Não sei responder
+QE_I31;8;Não se aplica
+QE_I32;.;Sem resposta
+QE_I32;1;Discordo totalmente
+QE_I32;2;Discordo
+QE_I32;3;Discordo parcialmente
+QE_I32;4;Concordo parcialmente
+QE_I32;5;Concordo
+QE_I32;6;Concordo totalmente
+QE_I32;7;Não sei responder
+QE_I32;8;Não se aplica
+QE_I33;.;Sem resposta
+QE_I33;1;Discordo totalmente
+QE_I33;2;Discordo
+QE_I33;3;Discordo parcialmente
+QE_I33;4;Concordo parcialmente
+QE_I33;5;Concordo
+QE_I33;6;Concordo totalmente
+QE_I33;7;Não sei responder
+QE_I33;8;Não se aplica
+QE_I34;.;Sem resposta
+QE_I34;1;Discordo totalmente
+QE_I34;2;Discordo
+QE_I34;3;Discordo parcialmente
+QE_I34;4;Concordo parcialmente
+QE_I34;5;Concordo
+QE_I34;6;Concordo totalmente
+QE_I34;7;Não sei responder
+QE_I34;8;Não se aplica
+QE_I35;.;Sem resposta
+QE_I35;1;Discordo totalmente
+QE_I35;2;Discordo
+QE_I35;3;Discordo parcialmente
+QE_I35;4;Concordo parcialmente
+QE_I35;5;Concordo
+QE_I35;6;Concordo totalmente
+QE_I35;7;Não sei responder
+QE_I35;8;Não se aplica
+QE_I36;.;Sem resposta
+QE_I36;1;Discordo totalmente
+QE_I36;2;Discordo
+QE_I36;3;Discordo parcialmente
+QE_I36;4;Concordo parcialmente
+QE_I36;5;Concordo
+QE_I36;6;Concordo totalmente
+QE_I36;7;Não sei responder
+QE_I36;8;Não se aplica
+QE_I37;.;Sem resposta
+QE_I37;1;Discordo totalmente
+QE_I37;2;Discordo
+QE_I37;3;Discordo parcialmente
+QE_I37;4;Concordo parcialmente
+QE_I37;5;Concordo
+QE_I37;6;Concordo totalmente
+QE_I37;7;Não sei responder
+QE_I37;8;Não se aplica
+QE_I38;.;Sem resposta
+QE_I38;1;Discordo totalmente
+QE_I38;2;Discordo
+QE_I38;3;Discordo parcialmente
+QE_I38;4;Concordo parcialmente
+QE_I38;5;Concordo
+QE_I38;6;Concordo totalmente
+QE_I38;7;Não sei responder
+QE_I38;8;Não se aplica
+QE_I39;.;Sem resposta
+QE_I39;1;Discordo totalmente
+QE_I39;2;Discordo
+QE_I39;3;Discordo parcialmente
+QE_I39;4;Concordo parcialmente
+QE_I39;5;Concordo
+QE_I39;6;Concordo totalmente
+QE_I39;7;Não sei responder
+QE_I39;8;Não se aplica
+QE_I40;.;Sem resposta
+QE_I40;1;Discordo totalmente
+QE_I40;2;Discordo
+QE_I40;3;Discordo parcialmente
+QE_I40;4;Concordo parcialmente
+QE_I40;5;Concordo
+QE_I40;6;Concordo totalmente
+QE_I40;7;Não sei responder
+QE_I40;8;Não se aplica
+QE_I41;.;Sem resposta
+QE_I41;1;Discordo totalmente
+QE_I41;2;Discordo
+QE_I41;3;Discordo parcialmente
+QE_I41;4;Concordo parcialmente
+QE_I41;5;Concordo
+QE_I41;6;Concordo totalmente
+QE_I41;7;Não sei responder
+QE_I41;8;Não se aplica
+QE_I42;.;Sem resposta
+QE_I42;1;Discordo totalmente
+QE_I42;2;Discordo
+QE_I42;3;Discordo parcialmente
+QE_I42;4;Concordo parcialmente
+QE_I42;5;Concordo
+QE_I42;6;Concordo totalmente
+QE_I42;7;Não sei responder
+QE_I42;8;Não se aplica
+QE_I43;.;Sem resposta
+QE_I43;1;Discordo totalmente
+QE_I43;2;Discordo
+QE_I43;3;Discordo parcialmente
+QE_I43;4;Concordo parcialmente
+QE_I43;5;Concordo
+QE_I43;6;Concordo totalmente
+QE_I43;7;Não sei responder
+QE_I43;8;Não se aplica
+QE_I44;.;Sem resposta
+QE_I44;1;Discordo totalmente
+QE_I44;2;Discordo
+QE_I44;3;Discordo parcialmente
+QE_I44;4;Concordo parcialmente
+QE_I44;5;Concordo
+QE_I44;6;Concordo totalmente
+QE_I44;7;Não sei responder
+QE_I44;8;Não se aplica
+QE_I45;.;Sem resposta
+QE_I45;1;Discordo totalmente
+QE_I45;2;Discordo
+QE_I45;3;Discordo parcialmente
+QE_I45;4;Concordo parcialmente
+QE_I45;5;Concordo
+QE_I45;6;Concordo totalmente
+QE_I45;7;Não sei responder
+QE_I45;8;Não se aplica
+QE_I46;.;Sem resposta
+QE_I46;1;Discordo totalmente
+QE_I46;2;Discordo
+QE_I46;3;Discordo parcialmente
+QE_I46;4;Concordo parcialmente
+QE_I46;5;Concordo
+QE_I46;6;Concordo totalmente
+QE_I46;7;Não sei responder
+QE_I46;8;Não se aplica
+QE_I47;.;Sem resposta
+QE_I47;1;Discordo totalmente
+QE_I47;2;Discordo
+QE_I47;3;Discordo parcialmente
+QE_I47;4;Concordo parcialmente
+QE_I47;5;Concordo
+QE_I47;6;Concordo totalmente
+QE_I47;7;Não sei responder
+QE_I47;8;Não se aplica
+QE_I48;.;Sem resposta
+QE_I48;1;Discordo totalmente
+QE_I48;2;Discordo
+QE_I48;3;Discordo parcialmente
+QE_I48;4;Concordo parcialmente
+QE_I48;5;Concordo
+QE_I48;6;Concordo totalmente
+QE_I48;7;Não sei responder
+QE_I48;8;Não se aplica
+QE_I49;.;Sem resposta
+QE_I49;1;Discordo totalmente
+QE_I49;2;Discordo
+QE_I49;3;Discordo parcialmente
+QE_I49;4;Concordo parcialmente
+QE_I49;5;Concordo
+QE_I49;6;Concordo totalmente
+QE_I49;7;Não sei responder
+QE_I49;8;Não se aplica
+QE_I50;.;Sem resposta
+QE_I50;1;Discordo totalmente
+QE_I50;2;Discordo
+QE_I50;3;Discordo parcialmente
+QE_I50;4;Concordo parcialmente
+QE_I50;5;Concordo
+QE_I50;6;Concordo totalmente
+QE_I50;7;Não sei responder
+QE_I50;8;Não se aplica
+QE_I51;.;Sem resposta
+QE_I51;1;Discordo totalmente
+QE_I51;2;Discordo
+QE_I51;3;Discordo parcialmente
+QE_I51;4;Concordo parcialmente
+QE_I51;5;Concordo
+QE_I51;6;Concordo totalmente
+QE_I51;7;Não sei responder
+QE_I51;8;Não se aplica
+QE_I52;.;Sem resposta
+QE_I52;1;Discordo totalmente
+QE_I52;2;Discordo
+QE_I52;3;Discordo parcialmente
+QE_I52;4;Concordo parcialmente
+QE_I52;5;Concordo
+QE_I52;6;Concordo totalmente
+QE_I52;7;Não sei responder
+QE_I52;8;Não se aplica
+QE_I53;.;Sem resposta
+QE_I53;1;Discordo totalmente
+QE_I53;2;Discordo
+QE_I53;3;Discordo parcialmente
+QE_I53;4;Concordo parcialmente
+QE_I53;5;Concordo
+QE_I53;6;Concordo totalmente
+QE_I53;7;Não sei responder
+QE_I53;8;Não se aplica
+QE_I54;.;Sem resposta
+QE_I54;1;Discordo totalmente
+QE_I54;2;Discordo
+QE_I54;3;Discordo parcialmente
+QE_I54;4;Concordo parcialmente
+QE_I54;5;Concordo
+QE_I54;6;Concordo totalmente
+QE_I54;7;Não sei responder
+QE_I54;8;Não se aplica
+QE_I55;.;Sem resposta
+QE_I55;1;Discordo totalmente
+QE_I55;2;Discordo
+QE_I55;3;Discordo parcialmente
+QE_I55;4;Concordo parcialmente
+QE_I55;5;Concordo
+QE_I55;6;Concordo totalmente
+QE_I55;7;Não sei responder
+QE_I55;8;Não se aplica
+QE_I56;.;Sem resposta
+QE_I56;1;Discordo totalmente
+QE_I56;2;Discordo
+QE_I56;3;Discordo parcialmente
+QE_I56;4;Concordo parcialmente
+QE_I56;5;Concordo
+QE_I56;6;Concordo totalmente
+QE_I56;7;Não sei responder
+QE_I56;8;Não se aplica
+QE_I57;.;Sem resposta
+QE_I57;0;0
+QE_I57;1;1
+QE_I57;2;2
+QE_I57;3;3
+QE_I57;4;4
+QE_I57;5;5
+QE_I57;6;6
+QE_I57;7;7
+QE_I57;8;8
+QE_I57;9;9
+QE_I57;10;10
+QE_I58;.;Sem resposta
+QE_I58;0;0
+QE_I58;1;1
+QE_I58;2;2
+QE_I58;3;3
+QE_I58;4;4
+QE_I58;5;5
+QE_I58;6;6
+QE_I58;7;7
+QE_I58;8;8
+QE_I58;9;9
+QE_I58;10;10
