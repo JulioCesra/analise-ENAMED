@@ -432,6 +432,30 @@ def ler_questionario_contextual_filtrado(mascara_perfil):
     contagens = dict(sorted(contagens.items(), key=lambda item: ordenar_coluna_questionario(item[0])))
     return montar_retorno_dados(pasta, arquivos_lidos, contagens)
 
+def ler_percepcao_prova_filtrada(mascara_perfil):
+    pasta = PASTAS_DADOS['percepcao_prova']
+    if not pasta.exists():
+        return montar_retorno_dados(pasta, [], {})
+
+    contagens = {}
+    arquivos_lidos = []
+
+    for arquivo in sorted(os.listdir(pasta)):
+        if arquivo.endswith('.txt'):
+            tabela = pd.read_csv(pasta / arquivo, sep=';', dtype=str)
+            if len(tabela) != len(mascara_perfil):
+                continue
+
+            tabela = tabela.loc[mascara_perfil.values]
+            arquivos_lidos.append(arquivo)
+
+            for coluna in tabela.columns:
+                if coluna.startswith('CO_RS_I'):
+                    contagens[coluna] = tabela[coluna].value_counts().sort_index()
+
+    contagens = dict(sorted(contagens.items(), key=lambda item: ordenar_coluna_questionario(item[0])))
+    return montar_retorno_dados(pasta, arquivos_lidos, contagens)
+
 @st.cache_data
 def ler_perguntas_questionario_estudante():
     caminho_perguntas = PASTAS_DADOS['questionario_estudante'] / 'perguntas_questionario_estudante.csv'
@@ -799,7 +823,48 @@ with tab3:
 
     st.divider()
 
-    dados_percepcao_prova = ler_dados_csv('percepcao_prova')
+    perfil_percepcao = ler_perfil_estudante()
+
+    if not perfil_percepcao.empty:
+        st.write("### Filtros por Perfil")
+
+        opcoes_sexo_percepcao = ['Todos'] + sorted(perfil_percepcao['TP_SEXO'].dropna().unique().tolist())
+        opcoes_faixa_idade_percepcao = ['Todos'] + [
+            faixa for faixa in ['Até 24 anos', '25 a 29 anos', '30 a 34 anos', '35 a 39 anos', '40 anos ou mais', 'Indefinido']
+            if faixa in perfil_percepcao['FAIXA_IDADE'].dropna().unique().tolist()
+        ]
+        opcoes_regiao_percepcao = ['Todos'] + sorted(perfil_percepcao['CO_REGIAO_CURSO'].dropna().unique().tolist())
+        opcoes_turno_percepcao = ['Todos'] + sorted(perfil_percepcao['CO_TURNO_GRADUACAO'].dropna().unique().tolist())
+
+
+        filtro_percepcao1, filtro_percepcao2, filtro_percepcao3, filtro_percepcao4 = st.columns(4)
+        with filtro_percepcao1:
+            sexo_percepcao = st.selectbox("Sexo", opcoes_sexo_percepcao, key='filtro_sexo_percepcao')
+        with filtro_percepcao2:
+            faixa_idade_percepcao = st.selectbox("Faixa etária", opcoes_faixa_idade_percepcao, key='filtro_faixa_idade_percepcao')
+        with filtro_percepcao3:
+            regiao_percepcao = st.selectbox("Região do curso", opcoes_regiao_percepcao, key='filtro_regiao_percepcao')
+        with filtro_percepcao4:
+            turno_percepcao = st.selectbox("Turno", opcoes_turno_percepcao, key='filtro_turno_percepcao')
+
+        if st.button("Limpar filtros", key='limpar_filtros_percepcao'):
+            st.session_state['filtro_sexo_percepcao'] = 'Todos'
+            st.session_state['filtro_faixa_idade_percepcao'] = 'Todos'
+            st.session_state['filtro_regiao_percepcao'] = 'Todos'
+            st.session_state['filtro_turno_percepcao'] = 'Todos'
+            st.rerun()
+
+        mascara_percepcao = aplicar_filtros_perfil(
+            perfil_percepcao,
+            sexo_percepcao,
+            faixa_idade_percepcao,
+            regiao_percepcao,
+            turno_percepcao
+        )
+        dados_percepcao_prova = ler_percepcao_prova_filtrada(mascara_percepcao)
+    else:
+        st.warning("Dados de perfil do estudante não encontrados. A análise será exibida sem filtros.")
+        dados_percepcao_prova = ler_dados_csv('percepcao_prova')
 
     if dados_percepcao_prova['contagens']:
         pergunta_percepcao_escolhida = st.selectbox(
