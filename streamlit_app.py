@@ -582,6 +582,12 @@ if caminho_logo_enamed.exists():
     
 st.title("Análise de Dados Enamed - 2025")
 
+
+def limpar_filtros(*chaves):
+    for chave in chaves:
+        st.session_state[chave] = 'Todos'
+
+
 tab1, tab2, tab3 = st.tabs([
     "Questionário do Estudante Enamed",
     "Questionário Contextual Enamed",
@@ -625,12 +631,17 @@ with tab1:
         with filtro4:
             turno_escolhido = st.selectbox("Turno", opcoes_turno, key='filtro_turno_estudante')
 
-        if st.button("Limpar filtros"):
-            st.session_state['filtro_sexo_estudante'] = 'Todos'
-            st.session_state['filtro_faixa_idade_estudante'] = 'Todos'
-            st.session_state['filtro_regiao_estudante'] = 'Todos'
-            st.session_state['filtro_turno_estudante'] = 'Todos'
-            st.rerun()
+        st.button(
+            "Limpar filtros",
+            key='limpar_filtros_estudante',
+            on_click=limpar_filtros,
+            args=(
+                'filtro_sexo_estudante',
+                'filtro_faixa_idade_estudante',
+                'filtro_regiao_estudante',
+                'filtro_turno_estudante'
+            )
+        )
 
 
         mascara_perfil = aplicar_filtros_perfil(
@@ -724,10 +735,15 @@ with tab2:
         with filtro_contextual2:
             faixa_contextual = st.selectbox("Faixa etária", opcoes_faixa_contextual, key='filtro_faixa_idade_contextual')
 
-        if st.button("Limpar filtros", key='limpar_filtros_contextual'):
-            st.session_state['filtro_sexo_contextual'] = 'Todos'
-            st.session_state['filtro_faixa_idade_contextual'] = 'Todos'
-            st.rerun()
+        st.button(
+            "Limpar filtros",
+            key='limpar_filtros_contextual',
+            on_click=limpar_filtros,
+            args=(
+                'filtro_sexo_contextual',
+                'filtro_faixa_idade_contextual'
+            )
+        )
 
         mascara_contextual = aplicar_filtros_contextual(
             perfil_contextual,
@@ -847,12 +863,17 @@ with tab3:
         with filtro_percepcao4:
             turno_percepcao = st.selectbox("Turno", opcoes_turno_percepcao, key='filtro_turno_percepcao')
 
-        if st.button("Limpar filtros", key='limpar_filtros_percepcao'):
-            st.session_state['filtro_sexo_percepcao'] = 'Todos'
-            st.session_state['filtro_faixa_idade_percepcao'] = 'Todos'
-            st.session_state['filtro_regiao_percepcao'] = 'Todos'
-            st.session_state['filtro_turno_percepcao'] = 'Todos'
-            st.rerun()
+        st.button(
+            "Limpar filtros",
+            key='limpar_filtros_percepcao',
+            on_click=limpar_filtros,
+            args=(
+                'filtro_sexo_percepcao',
+                'filtro_faixa_idade_percepcao',
+                'filtro_regiao_percepcao',
+                'filtro_turno_percepcao'
+            )
+        )
 
         mascara_percepcao = aplicar_filtros_perfil(
             perfil_percepcao,
